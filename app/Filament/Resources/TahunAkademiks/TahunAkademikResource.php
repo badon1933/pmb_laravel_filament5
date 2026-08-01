@@ -23,6 +23,8 @@ class TahunAkademikResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Informasi Pendaftaran';
 
+    protected static ?int $navigationSort = 3;
+
     public static function form(Schema $schema): Schema
     {
         return TahunAkademikForm::configure($schema);
