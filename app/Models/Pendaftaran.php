@@ -57,4 +57,9 @@ class Pendaftaran extends Model
     {
         return $this->hasOne(DetailCamaba::class);
     }
+
+    public function detailKeluarga()
+    {
+        return $this->hasOne(DetailKeluarga::class);
+    }
 }
