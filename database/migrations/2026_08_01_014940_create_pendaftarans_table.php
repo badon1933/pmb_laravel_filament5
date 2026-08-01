@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('pendaftaran', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignId('jalur_pendaftaran_id')->constrained('jalur_pendaftaran')->onDelete('cascade');
-            $table->foreignId('gelombang_pendaftaran_id')->constrained('gelombang_pendaftaran')->onDelete('cascade');
-            $table->foreignId('tahun_akademik_id')->constrained('tahun_akademik')->onDelete('cascade');
+            $table->foreignUlid('jalur_pendaftaran_id')->constrained('jalur_pendaftaran')->onDelete('cascade');
+            $table->foreignUlid('gelombang_pendaftaran_id')->constrained('gelombang_pendaftaran')->onDelete('cascade');
+            $table->foreignUlid('tahun_akademik_id')->constrained('tahun_akademik')->onDelete('cascade');
             $table->string('nomor_pendaftaran')->unique();
             $table->string('nama_lengkap');
             $table->enum('jenis_kelamin', ['L', 'P']);
