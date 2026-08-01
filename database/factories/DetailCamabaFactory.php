@@ -25,6 +25,7 @@ class DetailCamabaFactory extends Factory
             'npwp' => $this->faker->unique()->numerify('################'),
             'hp' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
+            'telepon_rumah' => $this->faker->phoneNumber(),
             'jalan' => $this->faker->streetName(),
             'dusun' => $this->faker->city(),
             'rt' => $this->faker->numerify('###'),
