@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pendaftaran extends Model
 {
-    use HasUlids;
+    use HasUlids, HasFactory;
     protected $table = 'pendaftaran';
     protected $fillable = [
         'jalur_pendaftaran_id',
@@ -50,5 +51,10 @@ class Pendaftaran extends Model
     public function tahun_akademik()
     {
         return $this->belongsTo(TahunAkademik::class);
+    }
+
+    public function detailCamaba()
+    {
+        return $this->hasOne(DetailCamaba::class);
     }
 }
