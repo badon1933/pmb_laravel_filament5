@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 class JalurPendaftaran extends Model
 {
     use HasUlids;
-    
+
     protected $table = 'jalur_pendaftaran';
-    
+
     protected $fillable = [
         'jalur_pendaftaran',
         'deskripsi',
