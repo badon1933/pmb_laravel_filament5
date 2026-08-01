@@ -41,6 +41,8 @@ class PendaftaranResource extends Resource
     {
         return [
             'index' => ListPendaftarans::route('/'),
+            'edit' => EditPendaftaran::route('/{record}/edit'),
+            'create' => CreatePendaftaran::route('/create'),
         ];
     }
 }
