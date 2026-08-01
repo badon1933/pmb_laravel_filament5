@@ -22,12 +22,12 @@ class Pendaftaran extends Model
         'nama_ibu',
     ];
 
-    protected $listJenisKelamin = [
+    public static array $listJenisKelamin = [
         'L' => 'Laki-laki',
         'P' => 'Perempuan'
     ];
 
-    protected $listAgama = [
+    public static array $listAgama = [
         '1' => 'Islam',
         '2' => 'Kristen',
         '3' => 'Katholik',
