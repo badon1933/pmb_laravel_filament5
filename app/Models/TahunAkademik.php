@@ -15,4 +15,15 @@ class TahunAkademik extends Model
         'tahun_akademik',
         'status',
     ];
+
+    protected static function booted()
+    {
+        static::saved(function ($tahunAkademik) {
+            if ($tahunAkademik->status === 'aktif') {
+                // Set all other records to 'nonaktif'
+                static::where('id', '!=', $tahunAkademik->id)
+                    ->update(['status' => 'nonaktif']);
+            }
+        });
+    }
 }
