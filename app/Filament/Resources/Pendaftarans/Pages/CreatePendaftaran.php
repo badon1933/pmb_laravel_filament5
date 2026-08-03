@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePendaftaran extends CreateRecord
 {
     protected static string $resource = PendaftaranResource::class;
+
+    protected function getFormActions(): array
+    {
+        return [];
+    }
 }

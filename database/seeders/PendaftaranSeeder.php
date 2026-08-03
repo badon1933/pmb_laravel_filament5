@@ -14,6 +14,6 @@ class PendaftaranSeeder extends Seeder
      */
     public function run(): void
     {
-        Pendaftaran::factory(100)->has(DetailCamaba::factory())->create();
+        Pendaftaran::factory(10)->has(DetailCamaba::factory())->create();
     }
 }

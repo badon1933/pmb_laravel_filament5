@@ -15,6 +15,8 @@ use App\Models\DetailCamaba;
 use App\Models\DetailKeluarga;
 use App\Models\ReferensiNegara;
 use App\Models\ReferensiWilayah;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Blade;
 
 class PendaftaranForm
 {
@@ -78,7 +80,7 @@ class PendaftaranForm
                                     TextInput::make('nama_ibu')
                                         ->label('Nama Ibu')
                                         ->live(onBlur: true)
-                                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('../../detailKeluarga.nama_ibu', $state))
+                                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('detailKeluarga.nama_ibu', $state))
                                         ->required(),
                                 ])->columns(2),
                         ])->columns(1),
@@ -96,13 +98,18 @@ class PendaftaranForm
                                                 ->searchable()
                                                 ->required(),
                                             TextInput::make('nik')
-                                                ->label('NIK')
+                                                ->label('NIK (Nomor Induk Kependudukan)')
+                                                ->numeric()
+                                                ->length(16)
                                                 ->required(),
                                             TextInput::make('nisn')
-                                                ->label('NISN')
+                                                ->label('NISN (Nomor Induk Siswa Nasional)')
+                                                ->helperText('Bagi yang tidak memiliki NISN, silakan ketik angka 0 sebanyak 10 kali.')
+                                                ->numeric()
+                                                ->length(10)
                                                 ->required(),
                                             TextInput::make('npwp')
-                                                ->label('NPWP'),
+                                                ->label('NPWP (Nomor Pokok Wajib Pajak)'),
                                         ])->columns(2),
 
                                     FieldSet::make('Kontak')
@@ -122,16 +129,18 @@ class PendaftaranForm
                                     FieldSet::make('Alamat')
                                         ->schema([
                                             TextInput::make('jalan'),
-                                            TextInput::make('dusun'),
+                                            TextInput::make('dusun')
+                                                ->label('Dusun / Kampung'),
                                             TextInput::make('rt')
                                                 ->label('RT'),
                                             TextInput::make('rw')
                                                 ->label('RW'),
-                                            TextInput::make('kelurahan'),
+                                            TextInput::make('kelurahan')
+                                                ->label('Kelurahan / Desa'),
                                             Select::make('kecamatan')
                                                 ->options(ReferensiWilayah::all()->pluck(fn($record) => "{$record->kecamatan}, {$record->kabupaten}, {$record->provinsi}", 'kode_wilayah'))
                                                 ->searchable()
-                                                ->required(),
+                                            ->required(),
                                             TextInput::make('kode_pos')
                                                 ->label('Kode Pos'),
                                         ])->columns(2),
@@ -139,14 +148,18 @@ class PendaftaranForm
                                     FieldSet::make('Lainnya')
                                         ->schema([
                                             Select::make('jenis_tinggal')
+                                                ->label('Jenis Tinggal')
                                                 ->options(DetailCamaba::$listJenisTinggal),
                                             Select::make('alat_transportasi')
+                                                ->label('Alat Transportasi')
                                                 ->options(DetailCamaba::$listAlatTransportasi),
                                             Select::make('kebutuhan_khusus')
+                                                ->label('Kebutuhan Khusus')
                                                 ->options(['Tidak' => 'Tidak', 'Ya' => 'Ya'])
                                                 ->default('Tidak')
                                                 ->required(),
                                             Select::make('penerima_kps')
+                                                ->label('Penerima KPS')
                                                 ->options(['Tidak' => 'Tidak', 'Ya' => 'Ya'])
                                                 ->default('Tidak')
                                                 ->required(),
@@ -183,10 +196,10 @@ class PendaftaranForm
                                             TextInput::make('nik_ibu')
                                                 ->label('NIK Ibu'),
                                             TextInput::make('nama_ibu')
-                                                ->label('Nama Ibu (Terisi Otomatis)')
+                                                ->label('Nama Ibu')
+                                                ->helperText('Terisi Otomatis')
                                                 ->disabled()
-                                                ->dehydrated()
-                                                ->required(),
+                                                ->dehydrated(),
                                             DatePicker::make('tanggal_lahir_ibu')
                                                 ->label('Tanggal Lahir Ibu'),
                                             Select::make('pendidikan_ibu')
@@ -220,7 +233,14 @@ class PendaftaranForm
                                         ])->columns(2),
                                 ])
                         ]),
-                ])->columnSpanFull()
+                ])->submitAction(new HtmlString(Blade::render(<<<BLADE
+                    <x-filament::button
+                        type="submit"
+                        size="sm"
+                    >
+                        Simpan
+                    </x-filament::button>
+                BLADE)))->columnSpanFull()
             ]);
     }
 }
