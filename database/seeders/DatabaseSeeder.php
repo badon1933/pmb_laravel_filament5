@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             JalurPendaftaranSeeder::class,
             GelombangPendaftaranSeeder::class,
             PendaftaranSeeder::class,
+            ReferensiNegaraSeeder::class,
+            ReferensiWilayahSeeder::class,
         ]);
     }
 }

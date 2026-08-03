@@ -13,6 +13,8 @@ use Filament\Schemas\Components\FieldSet;
 use Filament\Schemas\Components\Utilities\Set;
 use App\Models\DetailCamaba;
 use App\Models\DetailKeluarga;
+use App\Models\ReferensiNegara;
+use App\Models\ReferensiWilayah;
 
 class PendaftaranForm
 {
@@ -88,7 +90,10 @@ class PendaftaranForm
                                 ->schema([
                                     FieldSet::make('Identitas Diri')
                                         ->schema([
-                                            TextInput::make('kewarganegaraan')
+                                            Select::make('kewarganegaraan')
+                                                ->options(ReferensiNegara::all()->pluck('negara', 'kode'))
+                                                ->default('ID')
+                                                ->searchable()
                                                 ->required(),
                                             TextInput::make('nik')
                                                 ->label('NIK')
@@ -123,7 +128,9 @@ class PendaftaranForm
                                             TextInput::make('rw')
                                                 ->label('RW'),
                                             TextInput::make('kelurahan'),
-                                            TextInput::make('kecamatan')
+                                            Select::make('kecamatan')
+                                                ->options(ReferensiWilayah::all()->pluck(fn($record) => "{$record->kecamatan}, {$record->kabupaten}, {$record->provinsi}", 'kode_wilayah'))
+                                                ->searchable()
                                                 ->required(),
                                             TextInput::make('kode_pos')
                                                 ->label('Kode Pos'),
