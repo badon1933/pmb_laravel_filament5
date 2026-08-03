@@ -30,6 +30,10 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->spa()
             ->topNavigation()
+            ->navigationGroups([
+                'Informasi Pendaftaran',
+                'Sistem',
+            ])
             ->brandName('Digital SPMB')
             ->colors([
                 'primary' => Color::Amber,
