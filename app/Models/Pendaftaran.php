@@ -62,4 +62,9 @@ class Pendaftaran extends Model
     {
         return $this->hasOne(DetailKeluarga::class);
     }
+
+    public function dokumen()
+    {
+        return $this->hasOne(Dokumen::class);
+    }
 }

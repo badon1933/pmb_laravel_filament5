@@ -17,6 +17,7 @@ use App\Models\ReferensiNegara;
 use App\Models\ReferensiWilayah;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
+use Filament\Forms\Components\FileUpload;
 
 class PendaftaranForm
 {
@@ -233,6 +234,72 @@ class PendaftaranForm
                                         ])->columns(2),
                                 ])
                         ]),
+                    Step::make('Upload Dokumen')
+                        ->schema([
+                            Group::make()
+                                ->relationship('dokumen')
+                                ->schema([
+                                    FileUpload::make('ijazah')
+                                        ->label('Ijazah')
+                                        ->directory('pendaftaran/dokumen')
+                                        ->acceptedFileTypes([
+                                            'application/pdf', 'image/jpeg', 'image/jpg', 'image/png'
+                                        ])
+                                        ->maxSize(2048)
+                                        ->helperText('Ukuran maksimal 2MB, Format : PDF, JPG, PNG')
+                                        ->previewable(true)
+                                        ->required(),
+                                    FileUpload::make('transkrip_nilai')
+                                        ->label('Transkrip Nilai')
+                                        ->directory('pendaftaran/dokumen')
+                                        ->acceptedFileTypes([
+                                            'application/pdf', 'image/jpeg', 'image/jpg', 'image/png'
+                                        ])
+                                        ->maxSize(2048)
+                                        ->helperText('Ukuran maksimal 2MB, Format : PDF, JPG, PNG')
+                                        ->previewable(true)
+                                        ->required(),
+                                    FileUpload::make('ktp')
+                                        ->label('KTP')
+                                        ->directory('pendaftaran/dokumen')
+                                        ->acceptedFileTypes([
+                                            'application/pdf', 'image/jpeg', 'image/jpg', 'image/png'
+                                        ])
+                                        ->maxSize(2048)
+                                        ->helperText('Ukuran maksimal 2MB, Format : PDF, JPG, PNG')
+                                        ->previewable(true)
+                                        ->required(),
+                                    FileUpload::make('kk')
+                                        ->label('Kartu Keluarga')
+                                        ->directory('pendaftaran/dokumen')
+                                        ->acceptedFileTypes([
+                                            'application/pdf', 'image/jpeg', 'image/jpg', 'image/png'
+                                        ])
+                                        ->maxSize(2048)
+                                        ->helperText('Ukuran maksimal 2MB, Format : PDF, JPG, PNG')
+                                        ->previewable(true)
+                                        ->required(),
+                                    FileUpload::make('akta_lahir')
+                                        ->label('Akta Kelahiran')
+                                        ->directory('pendaftaran/dokumen')
+                                        ->acceptedFileTypes([
+                                            'application/pdf', 'image/jpeg', 'image/jpg', 'image/png'
+                                        ])
+                                        ->maxSize(2048)
+                                        ->helperText('Ukuran maksimal 2MB, Format : PDF, JPG, PNG')
+                                        ->previewable(true)
+                                        ->required(),
+                                    FileUpload::make('dokumen_lainnya')
+                                        ->label('Dokumen Lainnya')
+                                        ->directory('pendaftaran/dokumen')
+                                        ->acceptedFileTypes([
+                                            'application/pdf', 'image/jpeg', 'image/jpg', 'image/png'
+                                        ])
+                                        ->maxSize(2048)
+                                        ->helperText('Ukuran maksimal 2MB, Format : PDF, JPG, PNG')
+                                        ->previewable(true),
+                                ]),
+                        ])
                 ])->submitAction(new HtmlString(Blade::render(<<<BLADE
                     <x-filament::button
                         type="submit"
